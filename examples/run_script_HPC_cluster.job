@@ -1,0 +1,27 @@
+#!/bin/bash
+#
+#PBS -q default ############### name of the queue/line you use in the cluster
+#PBS -M YOUR E-MAIL ADRESS HERE 
+#PBS -m abe
+#PBS -l nodes=1:ppn=1 ######### nodes and processes per node reuquested
+#PBS -r n
+#PBS -l walltime=03:00:00 ##### time requested
+#PBS -l pmem=155000mb ######### memory requested
+#PBS -e errors.log ############ error report file name
+#PBS -o report.log ############ stantard report file name
+#PBS -d ./
+#
+
+#Change to your work directory in the HPC cluster, where your SILVA-taxcollector and additional scripts are located
+
+cd $PBS_O_WORKDIR
+
+#Convert database to a hashtable for higher performance. 
+#You must run this command only once, or whenever you have a new version of SILVA database.
+
+perl make_hashtable.pl
+
+
+#Convert BLAST results generated from SILVA database into informative taxonomic names that may be used for generating your OTU table.
+
+perl SILVA-taxcollector.pl -f input_blast_result_table.txt -o output_classified_blast_table.txt 
