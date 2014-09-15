@@ -1,4 +1,3 @@
-all:
 	gcc -o tax_class ncbitc.c -Wall
 	wget -N ftp://ftp.ncbi.nih.gov/pub/taxonomy/taxdump.tar.gz
  	wget -N ftp://ftp.ncbi.nih.gov/pub/taxonomy//gi_taxid_nucl.dmp.gz
